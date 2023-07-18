@@ -9,11 +9,15 @@ import Transfer from './transfer.entity';
 
 import TransferController from './transfer.controller';
 import TransferService from './transfer.service';
+import TransferGateway from './transfer.gateway';
 
 
 @Module({
     imports: [TypeOrmModule.forFeature([Transfer])],
     controllers: [TransferController],
-    providers: [TransferService],
+    providers: [
+        TransferService,
+        TransferGateway
+    ],
 })
 export default class TransferModule {}

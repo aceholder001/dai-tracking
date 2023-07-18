@@ -36,12 +36,15 @@ async function bootstrap() {
             if (txReceipt.to === DAI) {
                 const decoded = abiDecoder.decodeLogs(txReceipt.logs);
 
-                const from = decoded[0].events[0].value;
-                const to = decoded[0].events[1].value;
-                const value = decoded[0].events[2].value;
+                if (decoded.length > 0) {
+                    const from = decoded[0].events[0].value;
+                    const to = decoded[0].events[1].value;
+                    const value = decoded[0].events[2].value;
 
-                controller.createTransfer(from, to, value);
-                console.log(`${from} ~ ${to} : ${value}`);
+                    controller.createTransfer(from, to, value);
+                    
+                    console.log(`${from} ~ ${to} : ${value}`);
+                }
             }
         }
     });

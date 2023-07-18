@@ -1,4 +1,5 @@
 import {
+    Injectable,
     Logger
 } from '@nestjs/common';
 import {
@@ -15,10 +16,12 @@ import {
 } from 'socket.io';
 import TransferService from './transfer.service';
 
-@WebSocketGateway({
-    cors: true
+@WebSocketGateway(80, {
+    cors: {
+        origin: '*',
+    },
 })
-export class TransferGateway
+export default class TransferGateway
 implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     constructor(private readonly transfersService: TransferService) {}
 
@@ -27,6 +30,7 @@ implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer() wss: Server;
 
     afterInit(server: Server) {
+        console.log('afterInit');
         this.logger.log('Initialized');
     }
 
@@ -35,12 +39,13 @@ implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     }
 
     handleConnection(client: Socket, ...args: any[]) {
+        console.log('connected');
         this.logger.log(`Client Connected: ${client.id}`);
     }
 
     @SubscribeMessage('sendMessage')
     async handleSendTransfer(client: Socket, from: string, to: string, value: string): Promise < void > {
-        const newMessage = await this.transfersService.createTransfer(from, to, value);
-        this.wss.emit('receiveMessage', newMessage);
+        const newMessage = await this.transfersService.getAllTransfers();
+        this.wss.emit('receiveMessage', newMessage.map(message => `${message.from} ~ ${message.to} : ${message.value}`).join('\n'));
     }
 }

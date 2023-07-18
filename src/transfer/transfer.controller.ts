@@ -8,6 +8,7 @@ import {
 
 import Transfer from './transfer.entity';
 import TransferService from './transfer.service';
+import TransferGateway from './transfer.gateway';
 
 @Controller('transfers')
 export default class TransferController {

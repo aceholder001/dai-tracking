@@ -23,8 +23,8 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/platform-socket.io": "^9.2.1",
+    "@nestjs/platform-express": "^9.4.3",
+    "@nestjs/platform-socket.io": "^9.4.3",
     "@nestjs/typeorm": "^9.0.1",
     "@nestjs/websockets": "^9.2.1",
     "abi-decoder": "^2.4.0",
@@ -33,7 +33,7 @@
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "socket.io": "^4.5.4",
+    "socket.io": "^4.7.1",
     "typeorm": "^0.3.10"
   },
   "devDependencies": {
