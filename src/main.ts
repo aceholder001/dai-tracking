@@ -33,7 +33,7 @@ async function bootstrap() {
         for (i = 0; i < blockWithTxs.length; i++) {
             const txReceipt = await eth_websocket.getTransactionReceipt(blockWithTxs[i]);
             
-            if (txReceipt.to === DAI) {
+            if (txReceipt !== null && txReceipt !== undefined && txReceipt.to === DAI) {
                 const decoded = abiDecoder.decodeLogs(txReceipt.logs);
 
                 if (decoded.length > 0) {
